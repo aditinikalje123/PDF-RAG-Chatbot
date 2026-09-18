@@ -1,28 +1,19 @@
-# 🤖 Chat with PDF locally using Ollama + LangChain
+# 🔐 Secure Local PDF RAG Chatbot 🤖
 
-A powerful local RAG (Retrieval Augmented Generation) application that lets you chat with your PDF documents using Ollama and LangChain. This project includes multiple interfaces: a modern Next.js web app, a Streamlit interface, and Jupyter notebooks for experimentation.
+A secure local RAG (Retrieval Augmented Generation) application that allows employees to ask questions about company PDF documents using Ollama and LangChain. The application provides role-based access, allowing admins to upload and manage company documents while employees can securely query the available PDFs. All document processing, retrieval, and LLM inference are performed locally using Ollama and ChromaDB.
 
 [![Python Tests](https://github.com/tonykipkemboi/ollama_pdf_rag/actions/workflows/tests.yml/badge.svg)](https://github.com/tonykipkemboi/ollama_pdf_rag/actions/workflows/tests.yml)
 
 ## ✨ Features
 
-- 🔒 **100% Local** - All processing happens on your machine, no data leaves
-- 📄 **Multi-PDF Support** - Upload and query across multiple documents
-- 🧠 **Multi-Query RAG** - Intelligent retrieval with source citations
-- 🎯 **Advanced RAG** - LangChain-powered pipeline with ChromaDB
-- 🖥️ **Two Modern UIs** - Next.js (primary) and Streamlit interfaces
-- 🔌 **REST API** - FastAPI backend for programmatic access
-- 📓 **Jupyter Notebooks** - For experimentation and learning
+- 🔒 **100% Local** - Documents and LLM processing stay on your machine
+- 👤 **Role-Based Login** - Separate Admin and Employee access
+- 📄 **Multi-PDF Support** - Admin can upload multiple company PDFs
+- 🧠 **RAG-Based Q&A** - Ask questions and get answers from company documents
+- 🗂️ **ChromaDB** - Stores document embeddings for retrieval
+- 🤖 **Ollama** - Runs the LLM locally without cloud APIs
+- 📚 **Source References** - Answers include relevant document sources
 
-## 🖼️ Screenshots
-
-### Next.js Interface (Recommended)
-![Next.js UI](nextjs_ui.png)
-*Modern chat interface with PDF management, source citations, and reasoning steps*
-
-### Streamlit Interface
-![Streamlit UI](st_app_ui.png)
-*Classic Streamlit interface with PDF viewer and chat functionality*
 
 ## 📺 Video Tutorial
 <a href="https://youtu.be/ztBJqzBU5kc">
