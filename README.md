@@ -1,214 +1,322 @@
-# 🔐 Secure Local PDF RAG Chatbot 🤖
+# 🔐 Secure PDF RAG Chatbot
 
 A secure local RAG (Retrieval Augmented Generation) application that allows employees to ask questions about company PDF documents using Ollama and LangChain. The application provides role-based access, allowing admins to upload and manage company documents while employees can securely query the available PDFs. All document processing, retrieval, and LLM inference are performed locally using Ollama and ChromaDB.
 
-[![Python Tests](https://github.com/tonykipkemboi/ollama_pdf_rag/actions/workflows/tests.yml/badge.svg)](https://github.com/tonykipkemboi/ollama_pdf_rag/actions/workflows/tests.yml)
+## 📌 Project Overview
 
-## ✨ Features
+Companies often store important information in internal documents such as:
+- HR policies
+- Leave policies
+- Work-from-home policies
+- IT security guidelines
+- Employee benefits
+- Company procedures and SOPs
 
-- 🔒 **100% Local** - Documents and LLM processing stay on your machine
-- 👤 **Role-Based Login** - Separate Admin and Employee access
-- 📄 **Multi-PDF Support** - Admin can upload multiple company PDFs
-- 🧠 **RAG-Based Q&A** - Ask questions and get answers from company documents
-- 🗂️ **ChromaDB** - Stores document embeddings for retrieval
-- 🤖 **Ollama** - Runs the LLM locally without cloud APIs
-- 📚 **Source References** - Answers include relevant document sources
+Searching through multiple documents manually can be time-consuming.
 
+This project provides a chatbot where:
 
-## 📺 Video Tutorial
-<a href="https://youtu.be/ztBJqzBU5kc">
-  <img src="https://img.youtube.com/vi/ztBJqzBU5kc/hqdefault.jpg" alt="Watch the video" width="100%">
-</a>
-
-## 🏗️ Project Structure
-```
-ollama_pdf_rag/
-├── src/
-│   ├── api/                  # FastAPI REST API
-│   │   ├── routers/          # API endpoints
-│   │   ├── services/         # Business logic
-│   │   └── main.py           # API entry point
-│   ├── app/                  # Streamlit application
-│   │   ├── components/       # UI components
-│   │   └── main.py           # Streamlit entry point
-│   └── core/                 # Core RAG functionality
-│       ├── document.py       # PDF processing
-│       ├── embeddings.py     # Vector embeddings
-│       ├── llm.py            # LLM configuration
-│       └── rag.py            # RAG pipeline
-├── web-ui/                   # Next.js frontend
-│   ├── app/                  # Next.js app router
-│   ├── components/           # React components
-│   └── lib/                  # Utilities & AI integration
-├── data/
-│   ├── pdfs/                 # PDF storage
-│   └── vectors/              # ChromaDB storage
-├── notebooks/                # Jupyter notebooks
-├── tests/                    # Unit tests
-├── docs/                     # Documentation
-├── run.py                    # Streamlit runner
-├── run_api.py                # FastAPI runner
-└── start_all.sh              # Start all services
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-1. **Install Ollama**
-   - Visit [Ollama's website](https://ollama.ai) to download and install
-   - Pull required models:
-     ```bash
-     ollama pull llama3.2  # or your preferred chat model
-     ollama pull nomic-embed-text  # for embeddings
-     ```
-
-2. **Clone Repository**
-   ```bash
-   git clone https://github.com/tonykipkemboi/ollama_pdf_rag.git
-   cd ollama_pdf_rag
-   ```
-
-3. **Set Up Python Environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-
-4. **Set Up Next.js Frontend** (for the modern UI)
-   ```bash
-   cd web-ui
-   pnpm install
-   pnpm db:migrate
-   cd ..
-   ```
-
-### 🎮 Running the Application
-
-#### Option 1: Next.js + FastAPI (Recommended)
-
-Start both services:
-
-```bash
-# Terminal 1: Start the FastAPI backend
-python run_api.py
-# Runs on http://localhost:8001
-
-# Terminal 2: Start the Next.js frontend
-cd web-ui && pnpm dev
-# Runs on http://localhost:3000
-```
-
-Or use the convenience script:
-```bash
-./start_all.sh
-```
-
-**Service URLs:**
-| Service | URL | Description |
-|---------|-----|-------------|
-| Next.js Frontend | http://localhost:3000 | Modern chat interface |
-| FastAPI Backend | http://localhost:8001 | REST API |
-| API Documentation | http://localhost:8001/docs | Swagger UI |
-
-#### Option 2: Streamlit Interface
-
-```bash
-python run.py
-# Runs on http://localhost:8501
-```
-
-#### Option 3: Jupyter Notebook
-
-```bash
-jupyter notebook
-```
-Open `notebooks/experiments/updated_rag_notebook.ipynb` to experiment with the code.
-
-## 💡 Usage
-
-### Next.js Interface
-1. **Upload PDFs** - Click the 📎 button or drag & drop files
-2. **View PDFs** - Uploaded PDFs appear in the sidebar with chunk counts
-3. **Select Model** - Choose from your locally available Ollama models
-4. **Ask Questions** - Type your question and get answers with source citations
-5. **View Reasoning** - See the AI's thinking process and retrieved chunks
-
-### Streamlit Interface
-1. **Upload PDF** - Use the file uploader or toggle "Use sample PDF"
-2. **Select Model** - Choose from available Ollama models
-3. **Ask Questions** - Chat with your PDF through the interface
-4. **Adjust Display** - Use the zoom slider for PDF visibility
-5. **Clean Up** - Delete collections when switching documents
-
-## 🔌 API Reference
-
-The FastAPI backend provides these endpoints:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/pdfs/upload` | Upload and process a PDF |
-| `GET` | `/api/v1/pdfs` | List all uploaded PDFs |
-| `DELETE` | `/api/v1/pdfs/{pdf_id}` | Delete a PDF |
-| `POST` | `/api/v1/query` | Query PDFs with RAG |
-| `GET` | `/api/v1/models` | List available Ollama models |
-| `GET` | `/api/v1/health` | Health check |
-
-See full documentation at http://localhost:8001/docs when running.
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-python -m pytest tests/ -v
-
-# Run with coverage
-python -m pytest tests/ --cov=src
-```
-
-### Pre-commit Hooks
-```bash
-pip install pre-commit
-pre-commit install
-```
-
-## ⚠️ Troubleshooting
-
-- **Ollama not responding**: Ensure Ollama is running (`ollama serve`)
-- **Model not found**: Pull models with `ollama pull <model-name>`
-- **No chunks retrieved**: Re-upload PDFs to rebuild the vector database
-- **Port conflicts**: Check if ports 3000, 8001, or 8501 are in use
-
-### Common Errors
-
-#### ONNX DLL Error (Windows)
-```
-DLL load failed while importing onnx_copy2py_export
-```
-Install [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist) and restart.
-
-#### CPU-Only Systems
-Reduce chunk size if experiencing memory issues:
-- Modify `chunk_size` to 500-1000 in `src/core/document.py`
-
-## 🤝 Contributing
-
-- Open issues for bugs or suggestions
-- Submit pull requests
-- Comment on the YouTube video for questions
-- ⭐ Star the repository if you find it useful!
-
-## 📝 License
-
-This project is open source and available under the MIT License.
+1. An **Admin** can upload company PDF documents.
+2. An **Employee** can log in to the chatbot.
+3. The employee asks questions in natural language.
+4. The system searches the relevant company documents.
+5. Relevant document sections are retrieved using RAG.
+6. **Ollama runs the LLM locally** to generate the answer.
+7. The application displays the answer along with the relevant document sources.
 
 ---
 
-## ⭐️ Star History
+## ✨ Features
 
-[![Star History Chart](https://api.star-history.com/svg?repos=tonykipkemboi/ollama_pdf_rag&type=Date)](https://star-history.com/#tonykipkemboi/ollama_pdf_rag&Date)
+- 🔒 **Local AI Processing** – Documents and LLM processing remain on the local machine.
+- 👤 **Role-Based Login** – Separate Admin and Employee access.
+- 📄 **Multi-PDF Support** – Admin can upload multiple company documents.
+- 🧠 **RAG-Based Question Answering** – Answers are generated using relevant document content.
+- 🤖 **Ollama** – Runs the LLM locally without cloud LLM APIs.
+- 🗂️ **ChromaDB** – Provides local vector storage and document retrieval.
+- 📚 **Source References** – Shows the documents used to answer questions.
+- 🔍 **Document-Based Answers** – The chatbot is designed to answer using the available company documents.
+- ⚡ **Direct Document Retrieval** – Uses focused document retrieval to improve response time.
+- 🖥️ **Streamlit Interface** – Simple web-based interface for Admin and Employee users.
 
-Built with ❤️ by [Tony Kipkemboi](https://tonykipkemboi.com)
+---
 
-Follow me on [X](https://x.com/tonykipkemboi) | [LinkedIn](https://www.linkedin.com/in/tonykipkemboi/) | [YouTube](https://www.youtube.com/@tonykipkemboi) | [GitHub](https://github.com/tonykipkemboi)
+## 🏗️ System Architecture
+
+```text
+                    ┌──────────────────┐
+                    │      Admin       │
+                    │      Login       │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Upload Company   │
+                    │      PDFs        │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │   PDF Processing │
+                    │   & Text Split   │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │    ChromaDB      │
+                    │ Local Retrieval  │
+                    └────────┬─────────┘
+                             │
+                             │
+┌──────────────────┐         ▼
+│    Employee      │   ┌──────────────────┐
+│      Login       │──▶│ Relevant Document│
+└──────────────────┘   │     Retrieval     │
+                       └────────┬─────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ Ollama Local LLM │
+                       └────────┬─────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ Answer + Sources │
+                       └──────────────────┘
+
+
+## 🔄 How the RAG Pipeline Works
+
+Company PDF
+     ↓
+PDF Text Extraction
+     ↓
+Text Chunking
+     ↓
+Local Embeddings
+     ↓
+ChromaDB
+     ↓
+User Question
+     ↓
+Relevant Document Retrieval
+     ↓
+Relevant Context
+     ↓
+Ollama Local LLM
+     ↓
+Final Answer
+     ↓
+Source References
+
+
+## 👥 User Roles
+
+1) 👨‍💼 Admin
+The Admin can:
+Log in using Admin credentials.
+Upload company PDF documents.
+Add multiple documents to the document collection.
+Manage the documents available to the chatbot.
+
+2) 👩‍💻 Employee
+The Employee can:
+Log in using Employee credentials.
+Access the chatbot.
+Ask questions about company documents.
+Receive answers based on the available PDFs.
+View the document sources used for the answer.
+
+##🔐 Local Privacy
+
+One of the main goals of this project is to demonstrate a local/private RAG architecture.
+
+The application uses Ollama to run the LLM locally.
+
+Therefore, the application does not require sending company PDF content to a cloud LLM API for normal question answering.
+
+For a real company implementation, the same architecture could be hosted on private company-controlled infrastructure, allowing employees to access the application through an internal web interface.
+
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Application development |
+| Streamlit | Web interface |
+| LangChain | RAG pipeline and LLM integration |
+| Ollama | Local LLM runtime |
+| ChromaDB | Local vector database |
+| PyMuPDF | PDF text extraction |
+| RecursiveCharacterTextSplitter | Document chunking |
+| Git & GitHub | Version control |
+
+
+## 📁 Project Structure
+
+PDF-RAG-Chatbot/
+│
+├── src/
+│   ├── app/
+│   │   └── main.py
+│   │
+│   └── core/
+│       └── document.py
+│
+├── data/
+│   ├── documents/
+│   │   └── company PDFs
+│   │
+│   └── chroma_db/
+│       └── local vector database
+│
+├── run.py
+├── requirements.txt
+├── .gitignore
+└── README.md
+
+The ragenv virtual environment is used locally but is excluded from GitHub.
+
+
+## ⚙️ Installation
+
+1. Clone the repository
+git clone https://github.com/aditinikalje123/PDF-RAG-Chatbot.git
+cd PDF-RAG-Chatbot
+
+2. Create a Python virtual environment
+Python 3.10 is recommended for this project.
+
+python -m venv ragenv
+Activate it on Windows:
+.\ragenv\Scripts\Activate.ps1
+
+3. Install dependencies
+pip install -r requirements.txt
+
+## 🤖 Install Ollama
+
+Install Ollama on your system and download the required models.
+
+Example:
+ollama pull llama3.2:3b
+For document embeddings:
+ollama pull nomic-embed-text
+Make sure Ollama is running before starting the application.
+
+
+## ▶️ Run the Application
+
+From the project directory:
+streamlit run src/app/main.py
+
+Or use:
+
+python run.py
+The Streamlit application will open in your browser.
+
+
+## 🔑 Demo Login
+
+For demonstration purposes, the application contains separate Admin and Employee credentials.
+
+1) Admin
+Username: admin
+Password: admin123
+
+2) Employee
+Username: employee
+Password: employee123
+
+These credentials are intended only for local demonstration. A production implementation should use secure password hashing, a proper authentication system, and organization-managed user accounts.
+
+
+##💬 Example Questions
+
+After logging in as an employee, you can ask questions such as:
+
+How many days of annual leave are available?
+
+How much advance notice is required for annual leave?
+
+How many work-from-home days can an employee take per month?
+
+What are the company password requirements?
+
+What should I do if I receive a suspicious email?
+
+What should I do if my company laptop is lost?
+
+How can I submit a reimbursement request?
+
+How many sick leave days are available?
+
+The chatbot retrieves relevant information from the uploaded company PDFs and generates an answer using the local LLM.
+
+## 📚 Example Company Documents
+
+The project can work with documents such as:
+
+HR Leave Policy
+Employee Work From Home Policy
+IT Security Guidelines
+Employee Benefits Policy
+Company SOPs
+Internal HR guidelines
+IT policies
+
+The PDFs are examples for demonstrating the RAG workflow.
+
+
+## 🚀 Future Improvements
+
+Possible improvements for a production-level implementation include:
+
+Secure password hashing
+Database-backed user authentication
+Multiple employee accounts
+Fine-grained document permissions
+Department-based document access
+Document deletion and management
+Improved conversation history
+Faster retrieval and response generation
+Audit logs for document access
+Internal/private server deployment
+HTTPS and enterprise authentication
+
+## 🎯 Real-World Use Case
+
+This project can be adapted for organizations that need employees to query internal documentation without manually searching through large collections of PDFs.
+
+For example:
+
+Employee
+   ↓
+Secure Login
+   ↓
+Internal Company Chatbot
+   ↓
+Authorized Company Documents
+   ↓
+RAG Retrieval
+   ↓
+Private / Self-Hosted LLM
+   ↓
+Answer + Source
+
+The LLM and document-processing components can be hosted on infrastructure controlled by the organization rather than requiring each employee to run the model locally.
+
+## 📌 Project Highlights
+
+Built a local PDF-based RAG chatbot.
+Implemented Admin and Employee role separation.
+Added multi-document support.
+Integrated Ollama for local LLM inference.
+Added local document retrieval using ChromaDB.
+Used PyMuPDF for PDF text extraction.
+Added source references to chatbot responses.
+Focused on privacy for confidential company documents.
+
+## 📄 License
+
+This project is intended for educational and portfolio purposes.
