@@ -1,0 +1,50 @@
+{
+  "pdf_2a33a1490be934c2": {
+    "pdf_id": "pdf_2a33a1490be934c2",
+    "file_name": "1) HR Leave Policy.pdf",
+    "stored_path": "C:\\Users\\nikhi\\OneDrive\\Desktop\\ollama_pdf_rag-main\\data\\documents\\1) HR Leave Policy.pdf",
+    "content_hash": "pdf_2a33a1490be934c2",
+    "chunk_ids": [
+      "pdf_2a33a1490be934c2_v4_0",
+      "pdf_2a33a1490be934c2_v4_1"
+    ],
+    "chroma_collection": "secure_pdf_rag_v4"
+  },
+  "pdf_6326bbcfafd75ffe": {
+    "pdf_id": "pdf_6326bbcfafd75ffe",
+    "file_name": "2) Employee Work From Home.pdf",
+    "stored_path": "C:\\Users\\nikhi\\OneDrive\\Desktop\\ollama_pdf_rag-main\\data\\documents\\2) Employee Work From Home.pdf",
+    "content_hash": "pdf_6326bbcfafd75ffe",
+    "chunk_ids": [
+      "pdf_6326bbcfafd75ffe_v4_0",
+      "pdf_6326bbcfafd75ffe_v4_1"
+    ],
+    "chroma_collection": "secure_pdf_rag_v4"
+  },
+  "pdf_ab952864bde9744f": {
+    "pdf_id": "pdf_ab952864bde9744f",
+    "file_name": "3)IT Security Guidelines.pdf",
+    "stored_path": "C:\\Users\\nikhi\\OneDrive\\Desktop\\ollama_pdf_rag-main\\data\\documents\\3)IT Security Guidelines.pdf",
+    "content_hash": "pdf_ab952864bde9744f",
+    "chunk_ids": [
+      "pdf_ab952864bde9744f_v4_0",
+      "pdf_ab952864bde9744f_v4_1",
+      "pdf_ab952864bde9744f_v4_2",
+      "pdf_ab952864bde9744f_v4_3"
+    ],
+    "chroma_collection": "secure_pdf_rag_v4"
+  },
+  "pdf_1fb3208ce6cdeb3c": {
+    "pdf_id": "pdf_1fb3208ce6cdeb3c",
+    "file_name": "4) Employee Benefits Policy.pdf",
+    "stored_path": "C:\\Users\\nikhi\\OneDrive\\Desktop\\ollama_pdf_rag-main\\data\\documents\\4) Employee Benefits Policy.pdf",
+    "content_hash": "pdf_1fb3208ce6cdeb3c",
+    "chunk_ids": [
+      "pdf_1fb3208ce6cdeb3c_v4_0",
+      "pdf_1fb3208ce6cdeb3c_v4_1",
+      "pdf_1fb3208ce6cdeb3c_v4_2",
+      "pdf_1fb3208ce6cdeb3c_v4_3"
+    ],
+    "chroma_collection": "secure_pdf_rag_v4"
+  }
+}

@@ -1,0 +1,26 @@
+# Streamlit application
+streamlit==1.40.0
+
+# Local Ollama
+ollama>=0.6.0
+langchain-ollama==1.0.1
+
+# LangChain RAG
+langchain==1.0.0
+langchain-core>=1.0.0
+langchain-community>=0.4.1
+langchain-text-splitters==1.0.0
+langchain-classic==1.0.0
+
+# PDF processing
+pdfplumber>=0.11.8
+PyMuPDF>=1.24.0
+
+# Local vector database
+chromadb>=0.4.22
+
+# Supporting packages
+numpy==1.26.4
+Pillow==10.4.0
+protobuf>=5.29.5
+pydantic==2.10.4
